@@ -2,6 +2,7 @@
 
 import BaseCreep from '/user/creeps/BaseCreep';
 import { CARRY, MOVE, ERR_NOT_IN_RANGE, RESOURCE_ENERGY } from '/game/constants';
+import { HAULER } from '/user/constants';
 
 class Hauler extends BaseCreep {
     // Private
@@ -11,10 +12,10 @@ class Hauler extends BaseCreep {
     /**
      * Hauler creep: retrieve (mined) energy and haul it to spawn
      * @constructor
-     * @param {StructureSpawn} spawn - The title of the book.
+     * @param {StructureSpawn} spawn - My spawn location
      */
     constructor(spawn) {
-        super('hauler');
+        super(HAULER);
         this.body = [CARRY,MOVE];
         this.#mySpawn = spawn;
         this.spawn(spawn);
