@@ -8,6 +8,11 @@ class Hauler extends BaseCreep {
     #targetContainer;
     #mySpawn;
 
+    /**
+     * Hauler creep: retrieve (mined) energy and haul it to spawn
+     * @constructor
+     * @param {StructureSpawn} spawn - The title of the book.
+     */
     constructor(spawn) {
         super('hauler');
         this.body = [CARRY,MOVE];
@@ -25,16 +30,28 @@ class Hauler extends BaseCreep {
         this.#targetContainer = container;
     }
 
+    // Methods
+    /**
+     * Execute the default action for a hauler creep: haul energy ;)
+     */
     run() {
-        console.log("Target container: " + JSON.stringify(this.targetContainer));
-        if(this.creep.store[RESOURCE_ENERGY] == 0) {
-            if (this.creep.withdraw(this.targetContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                this.creep.moveTo(this.targetContainer);
-            }
+        if(!this.#mySpawn) {
+            console.log("[E] Spawn not defined for creep " + this.creep.id);
         }
-        else { // on top of container = transfer energy
-            if(this.creep.transfer(this.#mySpawn, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                this.creep.moveTo(this.#mySpawn); 
+        else if (!this.targetContainer) {
+            console.log("[E] Target container not defined for creep " + this.creep.id);
+        }
+        else {
+            console.log("[D] Target container: " + JSON.stringify(this.targetContainer));
+            if(this.creep.store[RESOURCE_ENERGY] == 0) {
+                if (this.creep.withdraw(this.targetContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    this.creep.moveTo(this.targetContainer);
+                }
+            }
+            else { // on top of container = transfer energy
+                if(this.creep.transfer(this.#mySpawn, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    this.creep.moveTo(this.#mySpawn);
+                }
             }
         }
     }
