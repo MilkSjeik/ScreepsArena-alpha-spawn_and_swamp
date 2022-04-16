@@ -3,7 +3,7 @@
 import { findClosestByRange, getObjectsByPrototype } from '/game/utils';
 import { Creep, StructureContainer, StructureSpawn } from '/game/prototypes';
 
-class gameMemory {
+class GameMemory {
 
     #mySpawn;
     #enemySpawn;
@@ -35,12 +35,11 @@ class gameMemory {
 
     // Public methods
     getCloseContainer(object) {
-        // Find containers nearby spawn
-        const containers = getObjectsByPrototype(StructureContainer);
-        const closeContainers = findClosestByRange(object, containers);
-
-        return closeContainers[0];
+        // Find containers with energy nearby spawn
+        const containers = getObjectsByPrototype(StructureContainer).filter(container => container.store.getUsedCapacity() > 0);
+        console.log("Found containers: " + JSON.stringify(containers));
+        return findClosestByRange(object, containers);
     }
 }
 
-export default gameMemory;
+export default GameMemory;

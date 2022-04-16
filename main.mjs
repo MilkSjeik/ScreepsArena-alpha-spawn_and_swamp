@@ -4,13 +4,15 @@ import { findInRange, getObjectsByPrototype } from '/game/utils';
 import { Creep, StructureContainer, StructureSpawn } from '/game/prototypes';
 import { ATTACK, CARRY, MOVE, WORK, ERR_NOT_IN_RANGE, RESOURCE_ENERGY } from '/game/constants';
 import { } from '/arena';
-import gameMemory from '/user/gameMemory'
+import GameMemory from '/user/GameMemory';
+import Hauler from '/user/creeps/Hauler';
 
 
 let aMiners = [];
 let aKnights = [];
 let aMyContainers = [];
 let myMemory;
+let myHauler;
 
 
 export function loop() {
@@ -21,16 +23,27 @@ export function loop() {
 
     // Memory = 1 time only
     if(!myMemory) {
-        myMemory = new gameMemory();
+        myMemory = new GameMemory();
     }
     else {
-        console.log("Found memory: " + JSON.stringify(myMemory));
         console.log("My spawn: " + JSON.stringify(myMemory.mySpawn));
     }
 
     const closeContainer = myMemory.getCloseContainer(myMemory.mySpawn);
 
     console.log("First target container: " + JSON.stringify(closeContainer));
+
+    // Spawn hauler
+    if(!myHauler) {
+        myHauler = new Hauler(myMemory.mySpawn);
+    }
+    else {
+        console.log('Hauler body: ' + JSON.stringify(myHauler.body));
+        console.log('Hauler creep: ' + JSON.stringify(myHauler.creep));
+        myHauler.targetContainer = closeContainer;
+        myHauler.run();
+    }
+     
 
     // // Find containers nearby mySpawn
     // if(aMyContainers.length == 0) {
