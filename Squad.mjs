@@ -3,23 +3,29 @@
 //import { Creep } from '/game/prototypes';
 import { HAULER } from '/user/constants';
 import Hauler from '/user/creeps/Hauler';
+import SpawnQueue from './SpawnQueue.mjs'
 
 class Squad {
-    members = [];
+    #id;
+    #members = [];
+    #lastMemberId = 0;
 
     /**
      * Creates a squad of creeps
      * @constructor
      * @param {Array} roles - An array of creep roles
-     * @param {StructureSpawn} spawn - My spawn location
+     * @param {SpawnQueue} spawnQueue - Squad spawn location
      */
-    constructor(roles, spawn) {
+    constructor(id, roles, spawnQueue) {
         console.log("[D] request received to create a squad with roles: " + JSON.stringify(roles));
+        this.#id = id;
         roles.forEach(role => {
+            this.#lastMemberId++;
+
             switch(role) {
                 case HAULER:
-                    const hauler = new Hauler(spawn);
-                    this.members.push(hauler);
+                    const hauler = new Hauler(spawnQueue, this.#id, this.#lastMemberId);
+                    this.#members.push(hauler);
                     break;
             }
         });
@@ -32,7 +38,7 @@ class Squad {
      * TODO
      */
      run() {
-        console.log("[D] Squad members: " + JSON.stringify(this.members));
+        console.log("[D] Squad members: " + JSON.stringify(this.#members));
 
         // Verify if the squad is complete
         // If not, spawn member

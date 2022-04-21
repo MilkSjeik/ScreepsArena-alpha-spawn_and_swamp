@@ -3,32 +3,43 @@
 import BaseCreep from '/user/creeps/BaseCreep';
 import { CARRY, MOVE, ERR_NOT_IN_RANGE, RESOURCE_ENERGY } from '/game/constants';
 import { HAULER } from '/user/constants';
+import SpawnQueue from '../SpawnQueue.mjs'
 
 class Hauler extends BaseCreep {
     // Private
-    #targetContainer;
-    #mySpawn;
+    #source;
+    #target;
 
     /**
      * Hauler creep: retrieve (mined) energy and haul it to spawn
      * @constructor
-     * @param {StructureSpawn} spawn - My spawn location
+     * @param {SpawnQueue} spawnQueue - My spawn location
+     * @param {Number} squadId - Squad Id
+     * @param {Number} memberId - Member Id
      */
-    constructor(spawn) {
-        super(HAULER);
+    constructor(spawnQueue, squadId, memberId) {
+        super(squadId, memberId, HAULER);
+
         this.body = [CARRY,MOVE];
-        this.#mySpawn = spawn;
-        this.spawn(spawn);
+        //spawnQueue.addCreep(squadId, memberId);
+//        this.#mySpawn = spawn;
+        this.queueSpawn(spawnQueue);
     }
 
     // Getters
-    get targetContainer() {
-        return this.#targetContainer;
+    get source() {
+        return this.#source;
+    }
+    get target() {
+        return this.#target;
     }
 
     // Setters
-    set targetContainer(container) {
-        this.#targetContainer = container;
+    set source(source) {
+        this.#source = source;
+    }
+    set target(target) {
+        this.#target = target;
     }
 
     // Methods
@@ -36,22 +47,22 @@ class Hauler extends BaseCreep {
      * Execute the default action for a hauler creep: haul energy ;)
      */
     run() {
-        if(!this.#mySpawn) {
-            console.log("[E] Spawn not defined for creep " + this.creep.id);
+        if(!this.target) {
+            console.log("[E] Energy target not defined for creep " + this.creep.id);
         }
-        else if (!this.targetContainer) {
-            console.log("[E] Target container not defined for creep " + this.creep.id);
+        else if (!this.#source) {
+            console.log("[E] Energy source not defined for creep " + this.creep.id);
         }
         else {
-            console.log("[D] Target container: " + JSON.stringify(this.targetContainer));
+            console.log("[D] Source: " + JSON.stringify(this.target));
             if(this.creep.store[RESOURCE_ENERGY] == 0) {
-                if (this.creep.withdraw(this.targetContainer, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    this.creep.moveTo(this.targetContainer);
+                if (this.creep.withdraw(this.source, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    this.creep.moveTo(this.source);
                 }
             }
             else { // on top of container = transfer energy
-                if(this.creep.transfer(this.#mySpawn, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    this.creep.moveTo(this.#mySpawn);
+                if(this.creep.transfer(this.target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    this.creep.moveTo(this.target);
                 }
             }
         }

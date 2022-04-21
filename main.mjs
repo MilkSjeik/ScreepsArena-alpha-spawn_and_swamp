@@ -7,6 +7,7 @@ import { } from '/arena';
 import GameMemory from '/user/GameMemory';
 import Squad from './Squad.mjs';
 import { HAULER } from '/user/constants';
+import SpawnQueue from './SpawnQueue.mjs';
 
 
 let aMiners = [];
@@ -15,6 +16,7 @@ let aMyContainers = [];
 let myMemory;
 let myHauler;
 let mySquad;
+let mySpawnQueue;
 
 
 export function loop() {
@@ -26,21 +28,43 @@ export function loop() {
     // Memory = 1 time only
     if(!myMemory) {
         myMemory = new GameMemory();
+        console.log("[D] Saved my spawn: " + JSON.stringify(myMemory.mySpawn));
     }
     else {
-        console.log("[D] My spawn: " + JSON.stringify(myMemory.mySpawn));
+        console.log("[D] My spawn in memory: " + JSON.stringify(myMemory.mySpawn));
     }
 
-    const closeContainer = myMemory.getCloseContainer(myMemory.mySpawn);
+    if(!mySpawnQueue) {
+        if(myMemory.mySpawn) {
+            mySpawnQueue = new SpawnQueue(myMemory.mySpawn);
+            console.log("[D} Spawnqueue created")
+        }
+        else {
+            console.log("[E] No spawn found to create queue");
+        }
+    }
+    else {
+        console.log("[D] Main - Current spawn queue: " + JSON.stringify(mySpawnQueue));
+    }
 
-    console.log("[D] First target container: " + JSON.stringify(closeContainer));
+    // const closeContainer = myMemory.getCloseContainer(myMemory.mySpawn);
+
+    // console.log("[D] First target container: " + JSON.stringify(closeContainer));
+
 
     // Create first squad
     if (!mySquad) {
-        mySquad = new Squad([HAULER,HAULER], myMemory.mySpawn);
+        mySquad = new Squad(1, [HAULER,HAULER], mySpawnQueue);
     }
+
+    mySpawnQueue.spawn();
+
+
     mySquad.run();
 
+    myCreeps.forEach(creep => {
+        console.log("[D] Found creep: " + JSON.stringify(creep));
+    });
 
      
 
@@ -71,24 +95,32 @@ export function loop() {
     //     console.log("Found containers: " + JSON.stringify(containers) + "\n");
     // }
 
-    // // Spawn creep(s)
-    // if (aMiners.length < aMyContainers.length) {
-    //     if(mySpawn.store[RESOURCE_ENERGY] >= 250) {
-    //         const creep = mySpawn.spawnCreep([WORK, CARRY, MOVE]).object;
+    // Spawn creep(s)
+    // if (aMiners.length < 2) {
+    //     if(myMemory.mySpawn.store[RESOURCE_ENERGY] >= 250) {
+    //         console.log("[D] Try to spawn creep");
+    //         const creep = myMemory.mySpawn.spawnCreep([WORK, CARRY, MOVE]).object;
+    //         console.log("[D] Spawn return object: " + JSON.stringify(creep));
     //         if (creep) {
-    //             // assign container
-    //             const container = aMyContainers.find(container => !container.creep);
-    //             container.creep = true;
-    //             console.log("Found container target: " + JSON.stringify(container));
-    //             // TODO: extend container class instead of this...
-    //             creep.targetContainer = container.object;
-    //             console.log("Set creep target: " + JSON.stringify(creep.targetContainer));
+    //             console.log("[D] creep exists: " + JSON.stringify(creep));
+    //             // // assign container
+    //             // const container = aMyContainers.find(container => !container.creep);
+    //             // container.creep = true;
+    //             // console.log("Found container target: " + JSON.stringify(container));
+    //             // // TODO: extend container class instead of this...
+    //             // creep.targetContainer = container.object;
+    //             // console.log("Set creep target: " + JSON.stringify(creep.targetContainer));
                 
-    //             creep.role = "miner";
+    //             // creep.role = "miner";
     //             aMiners.push(creep);
+    //             console.log("[D] Added to miners array: " + JSON.stringify(aMiners));
     //         }
     //     }
     // }
+    // console.log("[D] Miners array: " + JSON.stringify(aMiners));
+    // aMiners.forEach(miner => {
+    //     console.log("\n[D] Miner(id=" + miner.id + ").exists: " + miner.exists);
+    // });
     // // just spawn attackers
     // else if(mySpawn.store[RESOURCE_ENERGY] >= 210) {
     //     const creep = mySpawn.spawnCreep([ATTACK, ATTACK, MOVE]).object;
