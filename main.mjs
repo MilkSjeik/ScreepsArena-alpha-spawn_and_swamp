@@ -5,17 +5,16 @@ import { Creep, StructureContainer, StructureSpawn } from '/game/prototypes';
 import { ATTACK, CARRY, MOVE, WORK, ERR_NOT_IN_RANGE, RESOURCE_ENERGY } from '/game/constants';
 import { } from '/arena';
 import GameMemory from '/user/GameMemory';
-import Squad from './Squad.mjs';
-import { HAULER } from '/user/constants';
 import SpawnQueue from './SpawnQueue.mjs';
+import SquadController from './SquadController.mjs';
 
 
 let aMiners = [];
 let aKnights = [];
 let aMyContainers = [];
 let myMemory;
+let mySquadController;
 let myHauler;
-let mySquad;
 let mySpawnQueue;
 
 
@@ -47,20 +46,23 @@ export function loop() {
         console.log("[D] Main - Current spawn queue: " + JSON.stringify(mySpawnQueue));
     }
 
+    if(mySpawnQueue){
+        // SquadController
+        if(!mySquadController) {
+            mySquadController = new SquadController();
+            // TODO: implement type of squad + strategy
+            mySquadController.createSquad(mySpawnQueue);
+        }
+    }
+
     // const closeContainer = myMemory.getCloseContainer(myMemory.mySpawn);
 
     // console.log("[D] First target container: " + JSON.stringify(closeContainer));
 
 
-    // Create first squad
-    if (!mySquad) {
-        mySquad = new Squad(1, [HAULER,HAULER], mySpawnQueue);
-    }
+
 
     mySpawnQueue.spawn();
-
-
-    mySquad.run();
 
     myCreeps.forEach(creep => {
         console.log("[D] Found creep: " + JSON.stringify(creep));
