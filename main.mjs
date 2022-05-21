@@ -7,7 +7,7 @@ import { } from '/arena';
 import GameMemory from '/user/GameMemory';
 import SpawnQueue from './SpawnQueue.mjs';
 import SquadController from './SquadController.mjs';
-
+import { HAULER } from '/user/constants';
 
 let aMiners = [];
 let aKnights = [];
@@ -42,27 +42,24 @@ export function loop() {
             console.log("[E] No spawn found to create queue");
         }
     }
-    else {
-        console.log("[D] Main - Current spawn queue: " + JSON.stringify(mySpawnQueue));
-    }
 
     if(mySpawnQueue){
         // SquadController
         if(!mySquadController) {
             mySquadController = new SquadController();
             // TODO: implement type of squad + strategy
-            mySquadController.createSquad(mySpawnQueue);
+            mySquadController.createSquad(mySpawnQueue, [HAULER,HAULER]);
         }
+        else {
+            mySquadController.run();
+        }
+        mySpawnQueue.spawn();
     }
 
     // const closeContainer = myMemory.getCloseContainer(myMemory.mySpawn);
 
     // console.log("[D] First target container: " + JSON.stringify(closeContainer));
 
-
-
-
-    mySpawnQueue.spawn();
 
     myCreeps.forEach(creep => {
         console.log("[D] Found creep: " + JSON.stringify(creep));
