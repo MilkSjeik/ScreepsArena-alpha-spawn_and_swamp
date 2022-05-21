@@ -9,21 +9,20 @@ class Hauler extends BaseCreep {
     // Private
     #source;
     #target;
+    creep;
 
     /**
      * Hauler creep: retrieve (mined) energy and haul it to spawn
      * @constructor
      * @param {SpawnQueue} spawnQueue - My spawn location
-     * @param {Number} squadId - Squad Id
+     * @param {Number} squad - Squad
      * @param {Number} memberId - Member Id
      */
-    constructor(spawnQueue, squadId, memberId) {
-        super(squadId, memberId, HAULER);
+    constructor(spawnQueue, squad, memberId) {
+        super(squad.squadId, memberId, HAULER);
 
-        this.body = [CARRY,MOVE];
-        //spawnQueue.addCreep(squadId, memberId);
-//        this.#mySpawn = spawn;
-        this.queueSpawn(spawnQueue);
+        this.body = [CARRY, MOVE];
+        this.queueSpawn(spawnQueue, squad);
     }
 
     // Getters
@@ -47,22 +46,24 @@ class Hauler extends BaseCreep {
      * Execute the default action for a hauler creep: haul energy ;)
      */
     run() {
-        if(!this.target) {
-            console.log("[E] Energy target not defined for creep " + this.creep.id);
-        }
-        else if (!this.#source) {
-            console.log("[E] Energy source not defined for creep " + this.creep.id);
-        }
-        else {
-            console.log("[D] Source: " + JSON.stringify(this.target));
-            if(this.creep.store[RESOURCE_ENERGY] == 0) {
-                if (this.creep.withdraw(this.source, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    this.creep.moveTo(this.source);
-                }
+        if (this.creep != undefined) {
+            if (!this.target) {
+                console.log("[E] Energy target not defined for creep " + this.creep.id);
             }
-            else { // on top of container = transfer energy
-                if(this.creep.transfer(this.target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    this.creep.moveTo(this.target);
+            else if (!this.#source) {
+                console.log("[E] Energy source not defined for creep " + this.creep.id);
+            }
+            else {
+                console.log("[D] Source: " + JSON.stringify(this.target));
+                if (this.creep.store[RESOURCE_ENERGY] == 0) {
+                    if (this.creep.withdraw(this.source, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        this.creep.moveTo(this.source);
+                    }
+                }
+                else { // on top of container = transfer energy
+                    if (this.creep.transfer(this.target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        this.creep.moveTo(this.target);
+                    }
                 }
             }
         }
