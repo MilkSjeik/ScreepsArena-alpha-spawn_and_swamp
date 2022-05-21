@@ -20,8 +20,8 @@ class BaseCreep {
         this.creep = spawn.spawnCreep(this.body).object;
     }
 
-    queueSpawn(spawnQueue) {
-        spawnQueue.add(this.squadId, this.memberId, this.role, this.body);
+    queueSpawn(spawnQueue, squad) {
+        spawnQueue.add(squad, this.memberId, this.role, this.body);
     }
 }
 
