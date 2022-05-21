@@ -24,7 +24,8 @@ class Squad {
 
             switch(role) {
                 case HAULER:
-                    const hauler = new Hauler(spawnQueue, this.#id, this.#lastMemberId);
+                    //const hauler = new Hauler(spawnQueue, this.#id, this.#lastMemberId);
+                    const hauler = new Hauler(spawnQueue, this, this.#lastMemberId);
                     this.#members.push(hauler);
                     break;
             }
@@ -38,6 +39,7 @@ class Squad {
      * TODO
      */
      run() {
+        console.log("[D] Squad.run()");
         console.log("[D] Squad members: " + JSON.stringify(this.#members));
 
         // Verify if the squad is complete
@@ -45,7 +47,10 @@ class Squad {
 
         // Time for action
         // for each member in the squad
-
+        this.#members.forEach(member => {
+            console.log("[D] Found member: " + JSON.stringify(member));
+            member.run();
+        });
 
         // Spawn hauler
         // if(!myHauler) {
@@ -65,6 +70,14 @@ class Squad {
 
      #spawnMember() {
          // TODO
+     }
+
+     updateMember(memberId, creep){
+         console.log("[D] Squad.updateMember()");
+         console.log("[D]  - memberId: " + memberId);
+         console.log("[D]  - creep: " + creep);
+
+         this.#members[memberId-1].creep = creep;
      }
 }
 
