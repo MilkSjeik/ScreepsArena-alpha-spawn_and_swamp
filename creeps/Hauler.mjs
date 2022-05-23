@@ -1,8 +1,8 @@
 'use strict'
 
-import BaseCreep from '/user/creeps/BaseCreep';
+import BaseCreep from './BaseCreep';
 import { CARRY, MOVE, ERR_NOT_IN_RANGE, RESOURCE_ENERGY } from '/game/constants';
-import { HAULER } from '/user/constants';
+import { HAULER } from '../constants';
 import SpawnQueue from '../SpawnQueue.mjs'
 
 class Hauler extends BaseCreep {
