@@ -19,13 +19,27 @@ class Squad extends BaseSquad{
      */
     constructor(id, roles, spawnQueue) {
         super(id, roles, spawnQueue);
+
+        console.log("[D] request received to create a squad with roles: " + JSON.stringify(roles));
+        this.#id = id;
+        roles.forEach(role => {
+            this.#lastMemberId++;
+
+            switch(role) {
+                case HAULER:
+                    //const hauler = new Hauler(spawnQueue, this.#id, this.#lastMemberId);
+                    const hauler = new Hauler(spawnQueue, this, this.#lastMemberId);
+                    this.#members.push(hauler);
+                    break;
+            }
+        });
     }
 
     // Methods
     /**
      * TODO
      */
-     run() {
+     run(memory) {
         console.log("[D] Squad.run()");
         console.log("[D] Squad members: " + JSON.stringify(this.#members));
 
@@ -37,6 +51,8 @@ class Squad extends BaseSquad{
         this.#members.forEach(member => {
             console.log("[D] Found member: " + JSON.stringify(member));
             // TODO: If hauler: set target to retrieve energy
+            //if (member.roles)
+            member.target = memory.getCloseContainer(member);
 
             member.run();
         });

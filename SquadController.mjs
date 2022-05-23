@@ -29,10 +29,10 @@ class SquadController {
         }
     } 
 
-    run(){
+    run(memory){
         console.log("[D] SquadController.run()");
         this.#squads.forEach(squad => {
-            squad.run();
+            squad.run(memory);
         });
     }
 

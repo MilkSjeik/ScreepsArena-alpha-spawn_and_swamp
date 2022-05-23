@@ -51,7 +51,7 @@ export function loop() {
             mySquadController.createSquad(mySpawnQueue, [HAULER,HAULER]);
         }
         else {
-            mySquadController.run();
+            mySquadController.run(myMemory);
         }
         mySpawnQueue.spawn();
     }
