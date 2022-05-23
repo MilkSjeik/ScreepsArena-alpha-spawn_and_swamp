@@ -4,7 +4,7 @@ import { getObjectsByPrototype } from '/game/utils';
 import { StructureSpawn } from '/game/prototypes';
 import _ from './utils/lodash-4.17.21-es/lodash'
 
-import Squad from './Squad.mjs';
+import Squad from './squads/Squad';
 
 let mySquad;
 
