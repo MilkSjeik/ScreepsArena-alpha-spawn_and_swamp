@@ -1,12 +1,11 @@
 'use strict'
 
 //import { Creep } from '/game/prototypes';
-import BaseSquad from './BaseSquad';
 import { HAULER } from '/user/constants';
 import Hauler from '/user/creeps/Hauler';
 import SpawnQueue from '../SpawnQueue'
 
-class Squad extends BaseSquad{
+class Squad {
     #id;
     #members = [];
     #lastMemberId = 0;
@@ -18,8 +17,22 @@ class Squad extends BaseSquad{
      * @param {SpawnQueue} spawnQueue - Squad spawn location
      */
     constructor(id, roles, spawnQueue) {
-        super(id, roles, spawnQueue);
+        console.log("[D] request received to create a squad with roles: " + JSON.stringify(roles));
+        this.#id = id;
+        roles.forEach(role => {
+            this.#lastMemberId++;
+
+            switch(role) {
+                case HAULER:
+                    //const hauler = new Hauler(spawnQueue, this.#id, this.#lastMemberId);
+                    const hauler = new Hauler(spawnQueue, this, this.#lastMemberId);
+                    this.#members.push(hauler);
+                    break;
+            }
+        });
     }
+
+// TODO: move spawning of creeps to spawn queue/manager
 
     // Methods
     /**
@@ -36,8 +49,6 @@ class Squad extends BaseSquad{
         // for each member in the squad
         this.#members.forEach(member => {
             console.log("[D] Found member: " + JSON.stringify(member));
-            // TODO: If hauler: set target to retrieve energy
-
             member.run();
         });
 
