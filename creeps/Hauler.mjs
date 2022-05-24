@@ -30,6 +30,7 @@ class Hauler extends BaseCreep {
         return this.#source;
     }
     get target() {
+        console.log("[D] Getting target");
         return this.#target;
     }
 
@@ -38,7 +39,9 @@ class Hauler extends BaseCreep {
         this.#source = source;
     }
     set target(target) {
+        console.log("[D] Setting target: " + JSON.stringify(target) + "for creep with id: " + this.creep.id);
         this.#target = target;
+        console.log("[D] Set target: " + JSON.stringify(this.#target) + "for creep with id: " + this.creep.id);
     }
 
     // Methods
@@ -47,22 +50,27 @@ class Hauler extends BaseCreep {
      */
     run() {
         if (this.creep != undefined) {
-            if (!this.target) {
+            console.log("[D] Run Hauler - Target: " + JSON.stringify(this.#target) + "for creep with id: " + this.creep.id);
+            if (this.#target === undefined) {
                 console.log("[E] Energy target not defined for creep " + this.creep.id);
             }
-            else if (!this.#source) {
+            else if (!this.#source === undefined) {
                 console.log("[E] Energy source not defined for creep " + this.creep.id);
             }
             else {
-                console.log("[D] Source: " + JSON.stringify(this.target));
+                console.log("[D] Source: " + JSON.stringify(this.#target));
                 if (this.creep.store[RESOURCE_ENERGY] == 0) {
-                    if (this.creep.withdraw(this.source, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        this.creep.moveTo(this.source);
+                    console.log("[D] Trying to withdraw some energy");
+                    if (this.creep.withdraw(this.#source, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        console.log("[D] Not in range, moving closer!");
+                        this.creep.moveTo(this.#source);
                     }
                 }
                 else { // on top of container = transfer energy
-                    if (this.creep.transfer(this.target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                        this.creep.moveTo(this.target);
+                    console.log("[D] Transfer energy");
+                    if (this.creep.transfer(this.#target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                        console.log("[D] Not in range, moving closer!");
+                        this.creep.moveTo(this.#target);
                     }
                 }
             }

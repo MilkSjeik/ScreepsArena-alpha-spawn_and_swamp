@@ -47,6 +47,7 @@ class SpawnQueue {
 
                 // add creep to squad
                 creep.squad.updateMember(creep.memberId, creep);
+                //firstInQueue.squad.updateMember(creep.memberId, creep);
             }
         }
 

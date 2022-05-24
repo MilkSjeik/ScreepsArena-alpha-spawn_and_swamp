@@ -6,7 +6,7 @@ import { HAULER } from '/user/constants';
 import Hauler from '/user/creeps/Hauler';
 import SpawnQueue from '../SpawnQueue'
 
-class Squad extends BaseSquad{
+class Squad extends BaseSquad {
     #id;
     #members = [];
     #lastMemberId = 0;
@@ -25,7 +25,7 @@ class Squad extends BaseSquad{
         roles.forEach(role => {
             this.#lastMemberId++;
 
-            switch(role) {
+            switch (role) {
                 case HAULER:
                     //const hauler = new Hauler(spawnQueue, this.#id, this.#lastMemberId);
                     const hauler = new Hauler(spawnQueue, this, this.#lastMemberId);
@@ -39,7 +39,7 @@ class Squad extends BaseSquad{
     /**
      * TODO
      */
-     run(memory) {
+    run(memory) {
         console.log("[D] Squad.run()");
         console.log("[D] Squad members: " + JSON.stringify(this.#members));
 
@@ -52,9 +52,15 @@ class Squad extends BaseSquad{
             console.log("[D] Found member: " + JSON.stringify(member));
             // TODO: If hauler: set target to retrieve energy
             //if (member.roles)
-            member.target = memory.getCloseContainer(member);
+            if (member.creep) {
+                const container = memory.getCloseContainer(member.creep);
+                console.log("[D] Setting container as source: " + JSON.stringify(container));
+                member.source = container;
+                console.log("[D] Set container as source: " + JSON.stringify(member.source));
+                member.target = memory.mySpawn;
 
-            member.run();
+                member.run();
+            }
         });
 
         // Spawn hauler
@@ -67,23 +73,23 @@ class Squad extends BaseSquad{
         //     myHauler.targetContainer = closeContainer;
         //     myHauler.run();
         // }
-     }
+    }
 
-     #isSquadComplete() {
+    #isSquadComplete() {
         // TODO
-     }
+    }
 
-     #spawnMember() {
-         // TODO
-     }
+    #spawnMember() {
+        // TODO
+    }
 
-     updateMember(memberId, creep){
-         console.log("[D] Squad.updateMember()");
-         console.log("[D]  - memberId: " + memberId);
-         console.log("[D]  - creep: " + creep);
+    updateMember(memberId, creep) {
+        console.log("[D] Squad.updateMember()");
+        console.log("[D]  - memberId: " + memberId);
+        console.log("[D]  - creep: " + creep);
 
-         this.#members[memberId-1].creep = creep;
-     }
+        this.#members[memberId - 1].creep = creep;
+    }
 }
 
 export default Squad;
