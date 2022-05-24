@@ -5,7 +5,7 @@ import { HAULER } from '/user/constants';
 import Hauler from '/user/creeps/Hauler';
 import SpawnQueue from '../SpawnQueue'
 
-class Squad {
+class BaseSquad {
     #id;
     #members = [];
     #lastMemberId = 0;
@@ -17,19 +17,19 @@ class Squad {
      * @param {SpawnQueue} spawnQueue - Squad spawn location
      */
     constructor(id, roles, spawnQueue) {
-        console.log("[D] request received to create a squad with roles: " + JSON.stringify(roles));
-        this.#id = id;
-        roles.forEach(role => {
-            this.#lastMemberId++;
+        // console.log("[D] request received to create a squad with roles: " + JSON.stringify(roles));
+        // this.#id = id;
+        // roles.forEach(role => {
+        //     this.#lastMemberId++;
 
-            switch(role) {
-                case HAULER:
-                    //const hauler = new Hauler(spawnQueue, this.#id, this.#lastMemberId);
-                    const hauler = new Hauler(spawnQueue, this, this.#lastMemberId);
-                    this.#members.push(hauler);
-                    break;
-            }
-        });
+        //     switch(role) {
+        //         case HAULER:
+        //             //const hauler = new Hauler(spawnQueue, this.#id, this.#lastMemberId);
+        //             const hauler = new Hauler(spawnQueue, this, this.#lastMemberId);
+        //             this.#members.push(hauler);
+        //             break;
+        //     }
+        // });
     }
 
 // TODO: move spawning of creeps to spawn queue/manager
@@ -81,4 +81,4 @@ class Squad {
      }
 }
 
-export default Squad;
+export default BaseSquad;
