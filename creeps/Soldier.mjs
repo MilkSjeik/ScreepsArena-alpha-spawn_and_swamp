@@ -50,6 +50,7 @@ class Soldier extends BaseCreep {
      * Execute the default action for a hauler creep: haul energy ;)
      */
     run() {
+        console.log("[D] Soldier reporting for duty Sir!");
         // TODO: implement
     //     else if (myCreep.role == "knight") {
     //         // if enemycreep nearby
