@@ -32,14 +32,31 @@ class AssaultSquad extends BaseSquad {
         // for each member in the squad
         this.members.forEach(member => {
             console.log("[D] Found member: " + JSON.stringify(member));
-            // TODO: If hauler: set target to retrieve energy
+            // TODO:
+            // If solder: set target to attack
+            // Move together as one squad!
+            
+        //     else if (myCreep.role == "knight") {
+        //         // if enemycreep nearby
+        //         const closeTargets = findInRange(myCreep, enemyCreeps, 3);
+        //         if(closeTargets.length >= 1) {
+        //             // attack first enemy creep
+        //             const enemyCreep = closeTargets[0];
+        //             if(myCreep.attack(enemyCreep) == ERR_NOT_IN_RANGE) {
+        //                 myCreep.moveTo(enemyCreep);
+        //             }
+        //         }
+        //         else {
+        //             if(myCreep.attack(enemySpawn) == ERR_NOT_IN_RANGE) {
+        //                 // Move to attack enemySpawn
+        //                 myCreep.moveTo(enemySpawn);
+        //             }
+        //         }
+        //     }
+        
             //if (member.roles)
             if (member.creep) {
-                const container = memory.getCloseContainer(member.creep);
-                console.log("[D] Setting container as source: " + JSON.stringify(container));
-                member.source = container;
-                console.log("[D] Set container as source: " + JSON.stringify(member.source));
-                member.target = memory.mySpawn;
+                member.target = memory.enemySpawn;
 
                 member.run();
             }
