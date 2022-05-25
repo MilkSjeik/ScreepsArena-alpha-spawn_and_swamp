@@ -25,6 +25,8 @@ class SpawnQueue {
     }
 
     // Private methods
+
+    // Public methods
     spawn() {
         console.log("[D] SpawnQueue - Current spawn queue: " + JSON.stringify(this.#queue));
         // Check if something is in queue
@@ -38,7 +40,7 @@ class SpawnQueue {
             }
             else { // emtpy object = spawning creep
                 // set creep properties
-                creep.squad = firstInQueue.squad;
+                creep.squadId = firstInQueue.squad.id;
                 creep.memberId = firstInQueue.memberId;
                 creep.role = firstInQueue.role;
 
@@ -46,14 +48,12 @@ class SpawnQueue {
                 this.#queue = _.drop(this.#queue);
 
                 // add creep to squad
-                creep.squad.updateMember(creep.memberId, creep);
-                //firstInQueue.squad.updateMember(creep.memberId, creep);
+                firstInQueue.squad.updateMember(creep.memberId, creep);
             }
         }
 
     }
 
-    // Public methods
     add(squad, memberId, role, body) {
         this.#queue.push({
             "squad": squad,
