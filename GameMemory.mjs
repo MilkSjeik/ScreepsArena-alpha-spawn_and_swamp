@@ -21,7 +21,7 @@ class GameMemory {
     }
 
     get enemySpawn() {
-        return this.#mySpawn;
+        return this.#enemySpawn;
     }
 
     // Setters
