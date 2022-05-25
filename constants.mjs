@@ -1,5 +1,12 @@
 'use strict'
 
+// Squad types
+const ASSAULT = "assault";
+const MINING = "mining";
+
+export { ASSAULT, MINING };
+
+
 // Creep roles
 const HAULER = "hauler";
 const MINER = "miner";
