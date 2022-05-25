@@ -7,14 +7,10 @@ import { } from '/arena';
 import GameMemory from '/user/GameMemory';
 import SpawnQueue from './SpawnQueue.mjs';
 import SquadController from './SquadController.mjs';
-import { HAULER } from '/user/constants';
+import { ASSAULT, MINING } from './constants.mjs';
 
-let aMiners = [];
-let aKnights = [];
-let aMyContainers = [];
 let myMemory;
 let mySquadController;
-let myHauler;
 let mySpawnQueue;
 
 
@@ -25,7 +21,7 @@ export function loop() {
     const enemyCreeps = creeps.filter(creep => !creep.my);
 
     // Memory = 1 time only
-    if(!myMemory) {
+    if (!myMemory) {
         myMemory = new GameMemory();
         console.log("[D] Saved my spawn: " + JSON.stringify(myMemory.mySpawn));
     }
@@ -33,8 +29,8 @@ export function loop() {
         console.log("[D] My spawn in memory: " + JSON.stringify(myMemory.mySpawn));
     }
 
-    if(!mySpawnQueue) {
-        if(myMemory.mySpawn) {
+    if (!mySpawnQueue) {
+        if (myMemory.mySpawn) {
             mySpawnQueue = new SpawnQueue(myMemory.mySpawn);
             console.log("[D} Spawnqueue created")
         }
@@ -43,12 +39,13 @@ export function loop() {
         }
     }
 
-    if(mySpawnQueue){
+    if (mySpawnQueue) {
         // SquadController
-        if(!mySquadController) {
+        if (!mySquadController) {
             mySquadController = new SquadController();
             // TODO: implement type of squad + strategy
-            mySquadController.createSquad(mySpawnQueue, [HAULER,HAULER]);
+            mySquadController.createSquad(mySpawnQueue, MINING);
+            mySquadController.createSquad(mySpawnQueue, ASSAULT);
         }
         else {
             mySquadController.run(myMemory);
@@ -65,7 +62,7 @@ export function loop() {
         console.log("[D] Found creep: " + JSON.stringify(creep));
     });
 
-     
+
 
     // // Find containers nearby mySpawn
     // if(aMyContainers.length == 0) {
@@ -109,7 +106,7 @@ export function loop() {
     //             // // TODO: extend container class instead of this...
     //             // creep.targetContainer = container.object;
     //             // console.log("Set creep target: " + JSON.stringify(creep.targetContainer));
-                
+
     //             // creep.role = "miner";
     //             aMiners.push(creep);
     //             console.log("[D] Added to miners array: " + JSON.stringify(aMiners));
