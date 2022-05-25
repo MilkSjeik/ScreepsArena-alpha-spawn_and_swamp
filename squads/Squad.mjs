@@ -1,9 +1,6 @@
 'use strict'
 
-//import { Creep } from '/game/prototypes';
 import BaseSquad from './BaseSquad';
-import { HAULER } from '/user/constants';
-import Hauler from '/user/creeps/Hauler';
 import SpawnQueue from '../SpawnQueue'
 
 class Squad extends BaseSquad {
