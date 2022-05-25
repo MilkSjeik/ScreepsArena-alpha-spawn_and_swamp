@@ -9,7 +9,6 @@ class Hauler extends BaseCreep {
     // Private
     #source;
     #target;
-    creep;
 
     /**
      * Hauler creep: retrieve (mined) energy and haul it to spawn
