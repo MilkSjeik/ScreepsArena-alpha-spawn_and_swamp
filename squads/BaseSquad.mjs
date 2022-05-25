@@ -1,7 +1,7 @@
 'use strict'
 
 //import { Creep } from '/game/prototypes';
-import { HAULER } from '/user/constants';
+import { HAULER, SOLDIER, SNIPER, HEALER } from '../constants.mjs';
 import Hauler from '/user/creeps/Hauler';
 import SpawnQueue from '../SpawnQueue'
 
@@ -24,9 +24,14 @@ class BaseSquad {
 
             switch(role) {
                 case HAULER:
-                    //const hauler = new Hauler(spawnQueue, this.#id, this.#lastMemberId);
                     const hauler = new Hauler(spawnQueue, this, this.lastMemberId);
                     this.members.push(hauler);
+                    break;
+                case SOLDIER:
+                    break;
+                case SNIPER:
+                    break;
+                case HEALER:
                     break;
             }
         });
