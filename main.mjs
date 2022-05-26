@@ -15,24 +15,18 @@ let mySpawnQueue;
 
 
 export function loop() {
-    // Determine objects:
-    const creeps = getObjectsByPrototype(Creep);
-    const myCreeps = creeps.filter(creep => creep.my);
-    const enemyCreeps = creeps.filter(creep => !creep.my);
 
     // Memory = 1 time only
     if (!myMemory) {
         myMemory = new GameMemory();
-        console.log("[D] Saved my spawn: " + JSON.stringify(myMemory.mySpawn));
     }
     else {
-        console.log("[D] My spawn in memory: " + JSON.stringify(myMemory.mySpawn));
+        myMemory.refresh();
     }
 
     if (!mySpawnQueue) {
         if (myMemory.mySpawn) {
             mySpawnQueue = new SpawnQueue(myMemory.mySpawn);
-            console.log("[D} Spawnqueue created")
         }
         else {
             console.log("[E] No spawn found to create queue");
@@ -58,7 +52,7 @@ export function loop() {
     // console.log("[D] First target container: " + JSON.stringify(closeContainer));
 
 
-    myCreeps.forEach(creep => {
+    myMemory.myCreeps.forEach(creep => {
         console.log("[D] Found creep: " + JSON.stringify(creep));
     });
 
