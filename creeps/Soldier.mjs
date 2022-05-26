@@ -1,13 +1,16 @@
 'use strict'
 
-import BaseCreep from './BaseCreep';
+
 import { ATTACK, MOVE, ERR_NOT_IN_RANGE, RESOURCE_ENERGY } from '/game/constants';
-import { SOLDIER } from '../constants';
+import { getRange } from '/game/utils';
+import BaseCreep from './BaseCreep';
+import { GUARD, SOLDIER } from '../constants';
 import SpawnQueue from '../SpawnQueue.mjs'
 
 class Soldier extends BaseCreep {
     // Private
-    #target;
+    objective;
+    task;
 
     /**
      * Soldier creep: close combat
@@ -23,27 +26,27 @@ class Soldier extends BaseCreep {
         this.queueSpawn(spawnQueue, squad);
     }
 
-    // Getters
-    get target() {
-        return this.#target;
-    }
-
-    // Setters
-    set target(target) {
-        this.#target = target;
-    }
-
     // Methods
     /**
      * Execute the default action for a solder creep: attack
      */
     run() {
-        if (!this.#target) {
+        if (!this.task) {
             console.log("[D] Soldier reporting for duty Sir!");
         }
         else {
-            if (this.creep.attack(this.#target) == ERR_NOT_IN_RANGE) {
-                this.creep.moveTo(this.#target);
+            if (this.task == GUARD) {
+                console.log("[D] Soldier guarding our spawn.");
+                // If not in (close) range, move to objective
+                if (getRange(this.creep, this.objective) > 5) {
+                    this.creep.moveTo(this.objective);
+                }
+            }
+            else if (this.task == ATTACK) {
+                console.log("[D] Soldier attacking the enemy.");
+                if (this.creep.attack(this.objective) == ERR_NOT_IN_RANGE) {
+                    this.creep.moveTo(this.objective);
+                }
             }
         }
     }

@@ -30,7 +30,9 @@ class SquadController {
                 mySquad = new Squad(this.squadCounter, [HAULER, HAULER], spawnQueue);
                 break;
             case ASSAULT:
-                mySquad = new AssaultSquad(this.squadCounter, [SOLDIER, SOLDIER, SNIPER, HEALER], spawnQueue);
+                // TODO: implement healer and sniper
+                //mySquad = new AssaultSquad(this.squadCounter, [SOLDIER, SOLDIER, SNIPER, HEALER], spawnQueue);
+                mySquad = new AssaultSquad(this.squadCounter, [SOLDIER, SOLDIER], spawnQueue);
             default:
                 break;
         }

@@ -15,3 +15,11 @@ const SNIPER = "sniper";
 const HEALER = "healer";
 
 export { HAULER, MINER, SOLDIER, SNIPER, HEALER };
+
+
+// Creep tasks
+// TODO: attack removed, (ab)using Screeps ATTACK constant
+const GUARD = "guard";
+
+
+export { GUARD };
