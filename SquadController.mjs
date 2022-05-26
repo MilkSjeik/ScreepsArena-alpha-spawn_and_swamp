@@ -11,7 +11,7 @@ import { HAULER, SOLDIER, SNIPER, HEALER } from './constants.mjs';
 
 
 class SquadController {
-    static squadCounter;
+    squadCounter = 1;
     #squads = [];
 
     constructor() {
