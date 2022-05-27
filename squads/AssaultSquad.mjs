@@ -1,14 +1,17 @@
 'use strict'
 
-//import { Creep } from '/game/prototypes';
-import BaseSquad from './BaseSquad';
 import { ATTACK } from '/game/constants';
-import { GUARD, SOLDIER } from '../constants';
-import Hauler from '/user/creeps/Hauler';
-import SpawnQueue from '../SpawnQueue'
+import { findPath, getDirection  } from '/game/utils';
 import _ from '../utils/lodash-4.17.21-es/lodash';
+import BaseSquad from './BaseSquad';
+import { GUARD, SOLDIER } from '../constants';
+import SpawnQueue from '../SpawnQueue'
+
 
 class AssaultSquad extends BaseSquad {
+    squadPosition;
+    squadObjective;
+
     /**
      * Creates a squad of creeps
      * @constructor
@@ -25,6 +28,7 @@ class AssaultSquad extends BaseSquad {
      */
     run(memory) {
         let creepTask;
+        let direction;
 
         console.log("[D] Squad.run()");
         console.log("[D] Squad members: " + JSON.stringify(this.members));
@@ -42,12 +46,27 @@ class AssaultSquad extends BaseSquad {
         if (currentCreeps.length < this.members.length) {
             // if not complete: guard duty!
             creepTask = GUARD;
+            this.squadObjective = memory.mySpawn;
         }
         else {
             // otherwise attack mode
             creepTask = ATTACK;
+            // TODO: verify if an enemy creep is in range
+            this.squadObjective = memory.enemySpawn;
         }
 
+        // Determine direction
+        console.log("[D] First member in squad: " + JSON.stringify(this.members[0].creep));
+        if (this.members[0].creep) {
+            let path = findPath(this.members[0].creep, this.squadObjective);
+            // findPath returns array of coordinates...
+            if (path.length > 0) {
+                direction = getDirection(path[0].x - this.members[0].creep.x, path[0].y - this.members[0].creep.y);
+            }
+
+            console.log("[D] Trying to move into direction: " + JSON.stringify(direction));
+        }
+        
         // Time for action
         // for each member in the squad
         this.members.forEach(member => {
@@ -78,12 +97,8 @@ class AssaultSquad extends BaseSquad {
             if (member.creep) {
                 if (member.role == SOLDIER) {
                     member.task = creepTask;
-                    if (creepTask == GUARD) {
-                        member.objective = memory.mySpawn;
-                    }
-                    else if (creepTask == ATTACK) {
-                        member.objective = memory.enemySpawn;
-                    }
+                    member.objective = this.squadObjective;
+                    member.moveDirection = direction;
                 }
 
                 member.run();

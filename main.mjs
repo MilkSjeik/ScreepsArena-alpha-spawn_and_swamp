@@ -52,9 +52,9 @@ export function loop() {
     // console.log("[D] First target container: " + JSON.stringify(closeContainer));
 
 
-    myMemory.myCreeps.forEach(creep => {
-        console.log("[D] Found creep: " + JSON.stringify(creep));
-    });
+    // myMemory.myCreeps.forEach(creep => {
+    //     console.log("[D] Found creep: " + JSON.stringify(creep));
+    // });
 
 
 

@@ -11,6 +11,7 @@ class Soldier extends BaseCreep {
     // Private
     objective;
     task;
+    moveDirection;
 
     /**
      * Soldier creep: close combat
@@ -39,13 +40,13 @@ class Soldier extends BaseCreep {
                 console.log("[D] Soldier guarding our spawn.");
                 // If not in (close) range, move to objective
                 if (getRange(this.creep, this.objective) > 5) {
-                    this.creep.moveTo(this.objective);
+                    this.creep.move(this.moveDirection);
                 }
             }
             else if (this.task == ATTACK) {
                 console.log("[D] Soldier attacking the enemy.");
                 if (this.creep.attack(this.objective) == ERR_NOT_IN_RANGE) {
-                    this.creep.moveTo(this.objective);
+                    this.creep.move(this.moveDirection);
                 }
             }
         }
