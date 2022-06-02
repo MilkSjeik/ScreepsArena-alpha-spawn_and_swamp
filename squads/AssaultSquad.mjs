@@ -2,6 +2,7 @@
 
 import { ATTACK } from '/game/constants';
 import { findPath, getDirection  } from '/game/utils';
+import { Visual  } from '/game/visual';
 import _ from '../utils/lodash-4.17.21-es/lodash';
 import BaseSquad from './BaseSquad';
 import { GUARD, SOLDIER } from '../constants';
@@ -9,8 +10,9 @@ import SpawnQueue from '../SpawnQueue'
 
 
 class AssaultSquad extends BaseSquad {
-    squadPosition;
-    squadObjective;
+    inFormation;
+    position;
+    objective;
 
     /**
      * Creates a squad of creeps
@@ -20,6 +22,8 @@ class AssaultSquad extends BaseSquad {
      */
     constructor(id, roles, spawnQueue) {
         super(id, roles, spawnQueue);
+
+        this.inFormation = true;
     }
 
     // Methods
@@ -46,19 +50,23 @@ class AssaultSquad extends BaseSquad {
         if (currentCreeps.length < this.members.length) {
             // if not complete: guard duty!
             creepTask = GUARD;
-            this.squadObjective = memory.mySpawn;
+            this.objective = memory.mySpawn;
         }
         else {
             // otherwise attack mode
             creepTask = ATTACK;
             // TODO: verify if an enemy creep is in range
-            this.squadObjective = memory.enemySpawn;
+            this.objective = memory.enemySpawn;
         }
 
         // Determine direction
         console.log("[D] First member in squad: " + JSON.stringify(this.members[0].creep));
         if (this.members[0].creep) {
-            let path = findPath(this.members[0].creep, this.squadObjective);
+            let path = findPath(this.members[0].creep, this.objective);
+            // visualise path
+            let visual = new Visual(1, false);
+            visual.poly(path);
+
             // findPath returns array of coordinates...
             if (path.length > 0) {
                 direction = getDirection(path[0].x - this.members[0].creep.x, path[0].y - this.members[0].creep.y);
@@ -97,7 +105,7 @@ class AssaultSquad extends BaseSquad {
             if (member.creep) {
                 if (member.role == SOLDIER) {
                     member.task = creepTask;
-                    member.objective = this.squadObjective;
+                    member.objective = this.objective;
                     member.moveDirection = direction;
                 }
 

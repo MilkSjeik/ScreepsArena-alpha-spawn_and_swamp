@@ -10,6 +10,8 @@ class BaseSquad {
     id;
     members = [];
     lastMemberId = 0;
+    formation = [];
+    inFormation = false;
 
     /**
      * Creates a squad of creeps
@@ -18,11 +20,13 @@ class BaseSquad {
      * @param {SpawnQueue} spawnQueue - Squad spawn location
      */
     constructor(id, roles, spawnQueue) {
+        // TODO: import roles as a multidimension table for the formation
+        let formationLine = [];
+
         console.log("[D] request received to create a squad with roles: " + JSON.stringify(roles));
         this.id = id;
         roles.forEach(role => {
             let member;
-            this.lastMemberId++;
 
             switch (role) {
                 case HAULER:
@@ -39,8 +43,16 @@ class BaseSquad {
 
             if (member) {
                 this.members.push(member);
+                // TODO: make a multidimension table for the formation
+                formationLine.push(this.lastMemberId);
+
+                this.lastMemberId++;
             }
         });
+
+        this.formation.push(formationLine);
+
+        console.log("[D] Squad created with formation: " + JSON.stringify(this.formation));
     }
 
     // Methods
@@ -64,7 +76,7 @@ class BaseSquad {
         console.log("[D]  - memberId: " + memberId);
         console.log("[D]  - creep: " + creep);
 
-        this.members[memberId - 1].creep = creep;
+        this.members[memberId].creep = creep;
     }
 }
 
