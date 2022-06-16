@@ -19,8 +19,8 @@ class Squad extends BaseSquad {
      * TODO
      */
     run(memory) {
-        console.log("[D] Squad.run()");
-        console.log("[D] Squad members: " + JSON.stringify(this.members));
+        //console.log("[D] Squad.run()");
+        //console.log("[D] Squad members: " + JSON.stringify(this.members));
 
         // Verify if the squad is complete
         // If not, spawn member
@@ -28,14 +28,14 @@ class Squad extends BaseSquad {
         // Time for action
         // for each member in the squad
         this.members.forEach(member => {
-            console.log("[D] Found member: " + JSON.stringify(member));
+            //console.log("[D] Found member: " + JSON.stringify(member));
             // TODO: If hauler: set target to retrieve energy
             //if (member.roles)
             if (member.creep) {
                 const container = memory.getCloseContainer(member.creep);
-                console.log("[D] Setting container as source: " + JSON.stringify(container));
+                //console.log("[D] Setting container as source: " + JSON.stringify(container));
                 member.source = container;
-                console.log("[D] Set container as source: " + JSON.stringify(member.source));
+                //console.log("[D] Set container as source: " + JSON.stringify(member.source));
                 member.target = memory.mySpawn;
 
                 member.run();

@@ -44,7 +44,7 @@ class SquadController {
     } 
 
     run(memory){
-        console.log("[D] SquadController.run()");
+        //console.log("[D] SquadController.run()");
         this.#squads.forEach(squad => {
             squad.run(memory);
         });

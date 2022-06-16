@@ -41,7 +41,7 @@ class GameMemory {
     getCloseContainer(object) {
         // Find containers with energy nearby spawn
         const containers = getObjectsByPrototype(StructureContainer).filter(container => container.store.getUsedCapacity() > 0);
-        console.log("Found containers: " + JSON.stringify(containers));
+        //console.log("Found containers: " + JSON.stringify(containers));
         return findClosestByRange(object, containers);
     }
 

@@ -52,7 +52,7 @@ class BaseSquad {
 
         this.formation.push(formationLine);
 
-        console.log("[D] Squad created with formation: " + JSON.stringify(this.formation));
+        //console.log("[D] Squad created with formation: " + JSON.stringify(this.formation));
     }
 
     // Methods
@@ -72,9 +72,9 @@ class BaseSquad {
     }
 
     updateMember(memberId, creep) {
-        console.log("[D] Squad.updateMember()");
-        console.log("[D]  - memberId: " + memberId);
-        console.log("[D]  - creep: " + creep);
+        //console.log("[D] Squad.updateMember()");
+        //console.log("[D]  - memberId: " + memberId);
+        //console.log("[D]  - creep: " + creep);
 
         this.members[memberId].creep = creep;
     }
