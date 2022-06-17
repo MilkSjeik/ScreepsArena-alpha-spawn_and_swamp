@@ -95,13 +95,14 @@ class AssaultSquad extends BaseSquad {
                     }
                     else { 
                         let path;
-                        //     let path = findPath(member.creep, this.members[0].creep);
-                        // TODO: make dynamic
-                        if (creepTask === ATTACK) { // follow the leader
-                            // objective in range?
-
-                            // 
-                            path = findPath(member.creep, this.members[0].creep);
+                        if (creepTask === ATTACK) {
+                            // When the objecte is in range, don't try to follow the leader!
+                            path = findPath(member.creep, this.objective);
+                            if (path.length > 2) { // follow the leader
+                                path = findPath(member.creep, this.members[0].creep);
+                            }
+                            //console.log("[D] Path: " + JSON.stringify(path));
+                            console.log("[D] Path: " + JSON.stringify(path));
                         }
                         else { // guard spawn
                             // TODO: make dynamic
