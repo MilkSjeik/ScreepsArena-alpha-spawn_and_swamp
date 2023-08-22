@@ -1,0 +1,32 @@
+{
+  "devDependencies": {
+    "@types/screeps-arena": "^0.0.1",
+    "typescript": "^5.1.6"
+  },
+  "name": "alpha-spawn_and_swamp",
+  "description": "Intial basic version to win your first `Spawn and Swamp` match. Does nothing more then gathering energy and spawning as much as possible small fightnig creeps to attack the enemy spawn.",
+  "version": "1.0.0",
+  "main": "main.mjs",
+  "scripts": {
+    "build": "tsc",
+    "dev": "npx tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MilkSjeik/ScreepsArena-alpha-spawn_and_swamp.git"
+  },
+  "keywords": [
+    "screeps",
+    "arena",
+    "typescript",
+    "javascript",
+    "game"
+  ],
+  "author": "MilkSjeik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MilkSjeik/ScreepsArena-alpha-spawn_and_swamp/issues"
+  },
+  "homepage": "https://github.com/MilkSjeik/ScreepsArena-alpha-spawn_and_swamp#readme"
+}
