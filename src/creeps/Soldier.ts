@@ -2,7 +2,7 @@
 
 
 import { ATTACK, MOVE, ERR_NOT_IN_RANGE, RESOURCE_ENERGY } from '/game/constants';
-import { getRange } from '/game/utils';
+import { getRange } from 'game/utils';
 import BaseCreep from './BaseCreep';
 import { GUARD, SOLDIER } from '../constants';
 import SpawnQueue from '../SpawnQueue.mjs'
