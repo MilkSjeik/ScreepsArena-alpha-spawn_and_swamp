@@ -6,6 +6,13 @@ const MINING = "mining";
 
 export { ASSAULT, MINING };
 
+enum SquadType {
+  ASSAULT = "assault",
+  MINING = "mining",
+}
+
+export { SquadType };
+
 // Creep roles
 const HAULER = "hauler";
 const MINER = "miner";
