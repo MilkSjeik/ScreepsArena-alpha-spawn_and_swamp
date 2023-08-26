@@ -3,8 +3,9 @@
 import { getObjectsByPrototype } from "game/utils";
 import { StructureSpawn } from "game/prototypes";
 import SquadController from "./SquadController";
-import { role } from "constants";
-import _ from "./utils/lodash-4.17.21-es/lodash";
+import { role } from "./constants";
+//import _ from "./utils/lodash-4.17.21-es/lodash";
+import _ from "lodash";
 
 // TODO: move to seperate file?
 type SpawnRequest = {
