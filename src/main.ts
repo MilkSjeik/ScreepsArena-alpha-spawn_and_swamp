@@ -4,14 +4,14 @@ import { findInRange, getObjectsByPrototype } from 'game/utils';
 import { Creep, StructureContainer, StructureSpawn } from 'game/prototypes';
 import { ATTACK, CARRY, MOVE, WORK, ERR_NOT_IN_RANGE, RESOURCE_ENERGY } from 'game/constants';
 import { } from 'arena';
-import GameMemory from 'user/GameMemory';
+import GameMemory from './GameMemory';
 import SpawnQueue from './SpawnQueue';
 import SquadController from './SquadController';
 import { ASSAULT, MINING } from './constants';
 
-let myMemory;
-let mySquadController;
-let mySpawnQueue;
+let myMemory: GameMemory;
+let mySquadController: SquadController;
+let mySpawnQueue: SpawnQueue;
 
 
 export function loop() {
