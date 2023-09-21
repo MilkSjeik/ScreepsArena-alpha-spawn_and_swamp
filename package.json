@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "@types/node": "^20.6.3",
+    "@types/lodash": "^4.14.197",
     "@types/screeps-arena": "^0.0.1",
     "typescript": "^5.1.6"
   },
@@ -29,5 +30,8 @@
   "bugs": {
     "url": "https://github.com/MilkSjeik/ScreepsArena-alpha-spawn_and_swamp/issues"
   },
-  "homepage": "https://github.com/MilkSjeik/ScreepsArena-alpha-spawn_and_swamp#readme"
+  "homepage": "https://github.com/MilkSjeik/ScreepsArena-alpha-spawn_and_swamp#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
 }

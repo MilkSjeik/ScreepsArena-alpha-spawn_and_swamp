@@ -1,11 +1,11 @@
 "use strict";
 
 import { Creep, StructureSpawn } from "game/prototypes";
-import SpawnQueue from "../SpawnQueue.mjs";
+import SpawnQueue from "../SpawnQueue";
 
 class BaseCreep {
-  squadId;
-  memberId;
+  squadId: number;
+  memberId: number;
   role;
   body = [];
   creep: Creep | undefined;

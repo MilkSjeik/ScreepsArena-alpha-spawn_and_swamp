@@ -2,12 +2,14 @@
 
 import { getObjectsByPrototype } from "game/utils";
 import { StructureSpawn } from "game/prototypes";
-import _ from "./utils/lodash-4.17.21-es/lodash";
+//import _ from "./utils/lodash-4.17.21-es/lodash";
+import _ from "lodash";
 
 import Squad from "./squads/Squad";
 import AssaultSquad from "./squads/AssaultSquad";
-import { ASSAULT, MINING } from "./constants.mjs";
-import { HAULER, SOLDIER, SNIPER, HEALER } from "./constants.mjs";
+import { ASSAULT, MINING, SquadType } from "./constants";
+import { HAULER, SOLDIER, SNIPER, HEALER } from "./constants";
+import SpawnQueue from "SpawnQueue";
 
 class SquadController {
   squadCounter = 1;
@@ -20,7 +22,7 @@ class SquadController {
   // Setters
 
   // Create squad
-  createSquad(spawnQueue, squadType) {
+  createSquad(spawnQueue: SpawnQueue, squadType: SquadType) {
     let mySquad;
 
     switch (squadType) {
