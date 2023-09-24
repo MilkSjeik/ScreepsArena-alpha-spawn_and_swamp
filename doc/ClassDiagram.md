@@ -32,6 +32,9 @@ classDiagram
     + set enemySpawn(spawn: StructureSpawn)
     + refresh(): void
   }
+  class Hauler{
+
+  }
   class Soldier{
 
   }
@@ -43,4 +46,5 @@ classDiagram
   }
 
   GameMemory --> GameMemory : refresh()
+  Hauler--|>BaseCreep
 ```
