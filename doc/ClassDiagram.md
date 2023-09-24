@@ -33,7 +33,14 @@ classDiagram
     + refresh(): void
   }
   class Hauler{
-
+    - source
+    - target
+    + constructor()
+    + get source()
+    + get target()
+    + set source()
+    + set target()
+    + run()
   }
   class Soldier{
 
