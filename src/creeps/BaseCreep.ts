@@ -2,15 +2,17 @@
 
 import { Creep, StructureSpawn } from "game/prototypes";
 import SpawnQueue from "../SpawnQueue";
+import { role } from "../constants";
+import BaseSquad from "squads/BaseSquad";
 
 class BaseCreep {
   squadId: number;
   memberId: number;
-  role;
+  role: role;
   body = [];
   creep: Creep | undefined;
 
-  constructor(squadId, memberId, role) {
+  constructor(squadId: number, memberId: number, role: role) {
     this.squadId = squadId;
     this.memberId = memberId;
     this.role = role;
@@ -20,7 +22,7 @@ class BaseCreep {
     this.creep = spawn.spawnCreep(this.body).object;
   }
 
-  queueSpawn(spawnQueue, squad) {
+  queueSpawn(spawnQueue: SpawnQueue, squad: BaseSquad) {
     spawnQueue.add(squad, this.memberId, this.role, this.body);
   }
 }
