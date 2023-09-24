@@ -22,7 +22,7 @@ const HEALER = "healer";
 
 export { HAULER, MINER, SOLDIER, SNIPER, HEALER };
 
-enum role {
+enum Role {
   HAULER = "hauler",
   MINER = "miner",
   SOLDIER = "soldier",
@@ -30,10 +30,14 @@ enum role {
   HEALER = "healer",
 }
 
-export { role };
+export { Role };
 
 // Creep tasks
 // TODO: attack removed, (ab)using Screeps ATTACK constant
-const GUARD = "guard";
+enum SoldierTask {
+  GUARD = "GUARD",
+  DEFENSIVE = "DEFENSIVE",
+  OFFENSIVE = "OFFENSIVE",
+}
 
-export { GUARD };
+export { SoldierTask };
