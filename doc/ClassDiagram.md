@@ -46,5 +46,5 @@ classDiagram
   }
 
   GameMemory --> GameMemory : refresh()
-  Hauler--|>BaseCreep
+  BaseCreep <|-- Hauler
 ```
