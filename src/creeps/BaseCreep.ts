@@ -1,6 +1,7 @@
 "use strict";
 
 import { Creep, StructureSpawn } from "game/prototypes";
+import { CARRY, MOVE } from "game/constants";
 import SpawnQueue from "../SpawnQueue";
 import { Role } from "../constants";
 import BaseSquad from "squads/BaseSquad";
@@ -9,7 +10,7 @@ class BaseCreep {
   squadId: number;
   memberId: number;
   role: Role;
-  body = [];
+  body: (typeof CARRY | typeof MOVE)[] = [];
   creep: Creep | undefined;
 
   constructor(squadId: number, memberId: number, role: Role) {
