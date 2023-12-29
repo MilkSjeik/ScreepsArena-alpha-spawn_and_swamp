@@ -1,0 +1,1 @@
+- [ ] Adjust `MiningSquad` to determine the correct creep type, e.g.: HAULER
