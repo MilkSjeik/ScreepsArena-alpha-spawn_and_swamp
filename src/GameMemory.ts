@@ -1,7 +1,12 @@
 "use strict";
 
 import { findClosestByRange, getObjectsByPrototype } from "game/utils";
-import { Creep, StructureContainer, StructureSpawn } from "game/prototypes";
+import {
+  Creep,
+  StructureContainer,
+  StructureSpawn,
+  GameObject,
+} from "game/prototypes";
 
 class GameMemory {
   #mySpawn: StructureSpawn | undefined;
@@ -38,14 +43,21 @@ class GameMemory {
   }
 
   // Public methods
-  // getCloseContainer(object) {
-  //   // Find containers with energy nearby spawn
-  //   const containers = getObjectsByPrototype(StructureContainer).filter(
-  //     (container) => container.store.getUsedCapacity() > 0
-  //   );
-  //   //console.log("Found containers: " + JSON.stringify(containers));
-  //   return findClosestByRange(object, containers);
-  // }
+  getCloseContainer(object: GameObject): GameObject | null {
+    // Find containers with energy nearby spawn
+    const containers = getObjectsByPrototype(StructureContainer).filter(
+      // ?. operator checks if container.store is null or undefined, and if it is, the entire expression evaluates to undefined.
+      // The ?? operator then provides a default value of 0 in case the result is undefined.
+      (container) => container.store?.getUsedCapacity() ?? 0 > 0,
+    );
+
+    if (containers.length > 0) {
+      console.log("Found containers: " + JSON.stringify(containers));
+      return findClosestByRange(object, containers);
+    } else {
+      return null;
+    }
+  }
 
   refresh() {
     // Determine objects:
