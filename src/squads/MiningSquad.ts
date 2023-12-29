@@ -35,6 +35,27 @@ class Squad extends BaseSquad {
     // OR
     // - Via checking the member
     //
+    // class Car {
+    // Car implementation
+    // }
+    //
+    // class Bicycle {
+    //   // Bicycle implementation
+    // }
+    //
+    // let vehicles: (Car | Bicycle)[] = [new Car(), new Bicycle(), new Car()];
+    //
+    // for (const vehicle of vehicles) {
+    //   if (vehicle instanceof Car) {
+    //     console.log('This is a Car');
+    //     // You can access Car-specific properties and methods here
+    //   } else if (vehicle instanceof Bicycle) {
+    //     console.log('This is a Bicycle');
+    //     // You can access Bicycle-specific properties and methods here
+    //   }
+    // }
+    // See also Evernote ivm custom type guards
+    //
     // for each member in the squad
     this.members.forEach((member) => {
       //console.log("[D] Found member: " + JSON.stringify(member));
