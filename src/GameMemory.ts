@@ -43,7 +43,7 @@ class GameMemory {
   }
 
   // Public methods
-  getCloseContainer(object: GameObject): GameObject | null {
+  getCloseContainer(object: GameObject): StructureContainer | null {
     // Find containers with energy nearby spawn
     const containers = getObjectsByPrototype(StructureContainer).filter(
       // ?. operator checks if container.store is null or undefined, and if it is, the entire expression evaluates to undefined.

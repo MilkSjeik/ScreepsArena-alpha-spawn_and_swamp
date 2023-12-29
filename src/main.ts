@@ -42,7 +42,8 @@ export function loop() {
       mySquadController = new SquadController();
       // TODO: implement type of squad + strategy
       mySquadController.createSquad(mySpawnQueue, SquadType.MINING);
-      mySquadController.createSquad(mySpawnQueue, SquadType.ASSAULT);
+      // TODO: add other squads
+      // mySquadController.createSquad(mySpawnQueue, SquadType.ASSAULT);
     } else {
       mySquadController.run(myMemory);
     }

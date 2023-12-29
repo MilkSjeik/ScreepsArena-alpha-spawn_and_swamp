@@ -26,6 +26,13 @@ class BaseCreep {
   queueSpawn(spawnQueue: SpawnQueue, squad: BaseSquad) {
     spawnQueue.add(squad, this.memberId, this.role, this.body);
   }
+
+  /**
+   * TODO
+   */
+  run() {
+    console.log("[W] Implement run() in the child class!");
+  }
 }
 
 export default BaseCreep;

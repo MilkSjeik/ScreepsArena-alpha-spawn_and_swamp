@@ -5,10 +5,10 @@ import { StructureSpawn } from "game/prototypes";
 //import _ from "./utils/lodash-4.17.21-es/lodash";
 import _ from "lodash";
 
-import Squad from "./squads/Squad";
+import MiningSquad from "./squads/MiningSquad";
 import AssaultSquad from "./squads/AssaultSquad";
 import { ASSAULT, MINING, SquadType } from "./constants";
-import { HAULER, SOLDIER, SNIPER, HEALER } from "./constants";
+import { Role, HAULER, SOLDIER, SNIPER, HEALER } from "./constants";
 import SpawnQueue from "SpawnQueue";
 import BaseSquad from "squads/BaseSquad";
 import GameMemory from "GameMemory";
@@ -29,7 +29,11 @@ class SquadController {
 
     switch (squadType) {
       case MINING:
-        mySquad = new Squad(this.squadCounter, [HAULER, HAULER], spawnQueue);
+        mySquad = new MiningSquad(
+          this.squadCounter,
+          [Role.HAULER, Role.HAULER],
+          spawnQueue,
+        );
         break;
       case ASSAULT:
         // TODO: implement healer and sniper

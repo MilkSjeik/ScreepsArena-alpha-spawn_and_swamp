@@ -3,6 +3,8 @@
 import BaseSquad from "./BaseSquad";
 import SpawnQueue from "../SpawnQueue";
 import GameMemory from "../GameMemory";
+import { Role } from "../constants";
+import { StructureContainer } from "game/prototypes";
 
 class Squad extends BaseSquad {
   /**
@@ -11,7 +13,7 @@ class Squad extends BaseSquad {
    * @param {Array} roles - An array of creep roles
    * @param {SpawnQueue} spawnQueue - Squad spawn location
    */
-  constructor(id, roles, spawnQueue) {
+  constructor(id: number, roles: Role[], spawnQueue: SpawnQueue) {
     super(id, roles, spawnQueue);
   }
 
@@ -27,17 +29,31 @@ class Squad extends BaseSquad {
     // If not, spawn member
 
     // Time for action
+    //
+    // TODO: filter on type of creep => type object correctly
+    // - Via array filter
+    // OR
+    // - Via checking the member
+    //
     // for each member in the squad
     this.members.forEach((member) => {
       //console.log("[D] Found member: " + JSON.stringify(member));
       // TODO: If hauler: set target to retrieve energy
-      //if (member.roles)
-      if (member.creep) {
-        const container = memory.getCloseContainer(member.creep);
-        //console.log("[D] Setting container as source: " + JSON.stringify(container));
-        member.source = container;
-        //console.log("[D] Set container as source: " + JSON.stringify(member.source));
-        member.target = memory.mySpawn;
+      if (member.role === Role.HAULER) {
+        //if (member.roles)
+        if (member.creep) {
+          // TODO: reimplement?
+          const container: StructureContainer | null = memory.getCloseContainer(
+            member.creep,
+          );
+
+          if (container !== null) {
+            //console.log("[D] Setting container as source: " + JSON.stringify(container));
+            member.source = container;
+            //console.log("[D] Set container as source: " + JSON.stringify(member.source));
+            member.target = memory.mySpawn;
+          }
+        }
 
         member.run();
       }

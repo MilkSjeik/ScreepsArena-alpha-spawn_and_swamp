@@ -10,12 +10,12 @@ import SpawnQueue from "../SpawnQueue";
 import GameMemory from "../GameMemory";
 
 class BaseSquad {
-  id;
+  id: number;
 
   members: BaseCreep[] = [];
-  lastMemberId = 0;
+  lastMemberId: number = 0;
   // formation = [];
-  inFormation = false;
+  inFormation: boolean = false;
 
   /**
    * Creates a squad of creeps
@@ -23,7 +23,7 @@ class BaseSquad {
    * @param {Array} roles - An array of creep roles
    * @param {SpawnQueue} spawnQueue - Squad spawn location
    */
-  constructor(id, roles, spawnQueue) {
+  constructor(id: number, roles: Role[], spawnQueue: SpawnQueue) {
     // TODO: import roles as a multidimension table for the formation
     // let formationLine = [];
 
