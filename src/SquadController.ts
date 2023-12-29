@@ -10,10 +10,12 @@ import AssaultSquad from "./squads/AssaultSquad";
 import { ASSAULT, MINING, SquadType } from "./constants";
 import { HAULER, SOLDIER, SNIPER, HEALER } from "./constants";
 import SpawnQueue from "SpawnQueue";
+import BaseSquad from "squads/BaseSquad";
+import GameMemory from "GameMemory";
 
 class SquadController {
   squadCounter = 1;
-  #squads = [];
+  #squads: BaseSquad[] = [];
 
   constructor() {}
 
@@ -23,7 +25,7 @@ class SquadController {
 
   // Create squad
   createSquad(spawnQueue: SpawnQueue, squadType: SquadType) {
-    let mySquad;
+    let mySquad: BaseSquad | undefined;
 
     switch (squadType) {
       case MINING:
@@ -35,7 +37,7 @@ class SquadController {
         mySquad = new AssaultSquad(
           this.squadCounter,
           [SOLDIER, SOLDIER],
-          spawnQueue
+          spawnQueue,
         );
       default:
         break;
@@ -47,9 +49,9 @@ class SquadController {
     }
   }
 
-  run(memory) {
+  run(memory: GameMemory) {
     //console.log("[D] SquadController.run()");
-    this.#squads.forEach((squad) => {
+    this.#squads.forEach((squad: BaseSquad) => {
       squad.run(memory);
     });
   }

@@ -1,16 +1,20 @@
 "use strict";
 
+import { Creep } from "game/prototypes";
+import BaseCreep from "creeps/BaseCreep";
 //import { Creep } from '/game/prototypes';
-import { HAULER, SOLDIER, SNIPER, HEALER } from "../constants";
+import { HAULER, SOLDIER, SNIPER, HEALER, Role } from "../constants";
 import Hauler from "../creeps/Hauler";
 import Soldier from "../creeps/Soldier";
 import SpawnQueue from "../SpawnQueue";
+import GameMemory from "../GameMemory";
 
 class BaseSquad {
   id;
-  members = [];
+
+  members: BaseCreep[] = [];
   lastMemberId = 0;
-  formation = [];
+  // formation = [];
   inFormation = false;
 
   /**
@@ -21,14 +25,14 @@ class BaseSquad {
    */
   constructor(id, roles, spawnQueue) {
     // TODO: import roles as a multidimension table for the formation
-    let formationLine = [];
+    // let formationLine = [];
 
     console.log(
       "[D] request received to create a squad with roles: " +
-        JSON.stringify(roles)
+        JSON.stringify(roles),
     );
     this.id = id;
-    roles.forEach((role) => {
+    roles.forEach((role: Role) => {
       let member;
 
       switch (role) {
@@ -47,13 +51,13 @@ class BaseSquad {
       if (member) {
         this.members.push(member);
         // TODO: make a multidimension table for the formation
-        formationLine.push(this.lastMemberId);
+        // formationLine.push(this.lastMemberId);
 
         this.lastMemberId++;
       }
     });
 
-    this.formation.push(formationLine);
+    // this.formation.push(formationLine);
 
     //console.log("[D] Squad created with formation: " + JSON.stringify(this.formation));
   }
@@ -62,7 +66,7 @@ class BaseSquad {
   /**
    * TODO
    */
-  run() {
+  run(memory: GameMemory) {
     console.log("[W] Implement run() in the child class!");
   }
 
@@ -74,7 +78,7 @@ class BaseSquad {
     // TODO
   }
 
-  updateMember(memberId, creep) {
+  updateMember(memberId: number, creep: Creep) {
     //console.log("[D] Squad.updateMember()");
     //console.log("[D]  - memberId: " + memberId);
     //console.log("[D]  - creep: " + creep);

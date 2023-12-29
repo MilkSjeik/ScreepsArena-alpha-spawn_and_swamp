@@ -14,7 +14,7 @@ import {} from "arena";
 import GameMemory from "./GameMemory";
 import SpawnQueue from "./SpawnQueue";
 import SquadController from "./SquadController";
-import { ASSAULT, MINING } from "./constants";
+import { ASSAULT, MINING, SquadType } from "./constants";
 
 let myMemory: GameMemory;
 let mySquadController: SquadController;
@@ -41,8 +41,8 @@ export function loop() {
     if (!mySquadController) {
       mySquadController = new SquadController();
       // TODO: implement type of squad + strategy
-      mySquadController.createSquad(mySpawnQueue, MINING);
-      mySquadController.createSquad(mySpawnQueue, ASSAULT);
+      mySquadController.createSquad(mySpawnQueue, SquadType.MINING);
+      mySquadController.createSquad(mySpawnQueue, SquadType.ASSAULT);
     } else {
       mySquadController.run(myMemory);
     }
