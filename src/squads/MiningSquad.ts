@@ -6,7 +6,7 @@ import GameMemory from "../GameMemory";
 import { Role } from "../constants";
 import { StructureContainer } from "game/prototypes";
 
-class Squad extends BaseSquad {
+class MiningSquad extends BaseSquad {
   /**
    * Creates a squad of creeps
    * @constructor

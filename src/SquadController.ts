@@ -31,8 +31,8 @@ class SquadController {
       case MINING:
         mySquad = new MiningSquad(
           this.squadCounter,
-          [Role.HAULER, Role.HAULER],
-          spawnQueue,
+          [Role.MINER, Role.HAULER],
+          spawnQueue
         );
         break;
       case ASSAULT:
@@ -41,7 +41,7 @@ class SquadController {
         mySquad = new AssaultSquad(
           this.squadCounter,
           [SOLDIER, SOLDIER],
-          spawnQueue,
+          spawnQueue
         );
       default:
         break;

@@ -2,14 +2,15 @@
 
 import BaseCreep from "./BaseCreep";
 import { CARRY, MOVE, ERR_NOT_IN_RANGE, RESOURCE_ENERGY } from "game/constants";
+import { GameObject } from "game/prototypes";
 import { HAULER, Role } from "../constants";
 import SpawnQueue from "../SpawnQueue";
 import BaseSquad from "squads/BaseSquad";
 
 class Hauler extends BaseCreep {
   // Private
-  #source;
-  #target;
+  #source: GameObject; // TODO: replace with more specific objects
+  #target: GameObject;
 
   /**
    * Hauler creep: retrieve (mined) energy and haul it to spawn
@@ -18,8 +19,8 @@ class Hauler extends BaseCreep {
    * @param {Number} squad - Squad
    * @param {Number} memberId - Member Id
    */
-  constructor(spawnQueue: SpawnQueue, squad, memberId) {
-    super(squad.squadId, memberId, Role.HAULER);
+  constructor(spawnQueue: SpawnQueue, squad: BaseSquad, memberId: number) {
+    super(squad.id, memberId, Role.HAULER);
 
     this.body = [CARRY, MOVE];
     this.queueSpawn(spawnQueue, squad);
