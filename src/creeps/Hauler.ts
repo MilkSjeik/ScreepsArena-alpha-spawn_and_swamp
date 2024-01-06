@@ -2,15 +2,15 @@
 
 import BaseCreep from "./BaseCreep";
 import { CARRY, MOVE, ERR_NOT_IN_RANGE, RESOURCE_ENERGY } from "game/constants";
-import { GameObject } from "game/prototypes";
+import { GameObject, StructureSpawn } from "game/prototypes";
 import { HAULER, Role } from "../constants";
 import SpawnQueue from "../SpawnQueue";
 import BaseSquad from "squads/BaseSquad";
 
 class Hauler extends BaseCreep {
   // Private
-  #source: GameObject; // TODO: replace with more specific objects
-  #target: GameObject;
+  #source: GameObject | undefined; // TODO: replace with more specific objects
+  #target: StructureSpawn | undefined;
 
   /**
    * Hauler creep: retrieve (mined) energy and haul it to spawn

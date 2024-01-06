@@ -5,6 +5,7 @@ import SpawnQueue from "../SpawnQueue";
 import GameMemory from "../GameMemory";
 import { Role } from "../constants";
 import { StructureContainer } from "game/prototypes";
+import Hauler from "creeps/Hauler";
 
 class MiningSquad extends BaseSquad {
   /**
@@ -29,39 +30,12 @@ class MiningSquad extends BaseSquad {
     // If not, spawn member
 
     // Time for action
-    //
-    // TODO: filter on type of creep => type object correctly
-    // - Via array filter
-    // OR
-    // - Via checking the member
-    //
-    // class Car {
-    // Car implementation
-    // }
-    //
-    // class Bicycle {
-    //   // Bicycle implementation
-    // }
-    //
-    // let vehicles: (Car | Bicycle)[] = [new Car(), new Bicycle(), new Car()];
-    //
-    // for (const vehicle of vehicles) {
-    //   if (vehicle instanceof Car) {
-    //     console.log('This is a Car');
-    //     // You can access Car-specific properties and methods here
-    //   } else if (vehicle instanceof Bicycle) {
-    //     console.log('This is a Bicycle');
-    //     // You can access Bicycle-specific properties and methods here
-    //   }
-    // }
-    // See also Evernote ivm custom type guards
-    //
     // for each member in the squad
     this.members.forEach((member) => {
       //console.log("[D] Found member: " + JSON.stringify(member));
-      // TODO: If hauler: set target to retrieve energy
-      if (member.role === Role.HAULER) {
-        //if (member.roles)
+      // If hauler: set target to retrieve energy
+      if (member instanceof Hauler) {
+        // if (member.role === Role.HAULER) {
         if (member.creep) {
           // TODO: reimplement?
           const container: StructureContainer | null = memory.getCloseContainer(
@@ -90,4 +64,4 @@ class MiningSquad extends BaseSquad {
   }
 }
 
-export default Squad;
+export default MiningSquad;
