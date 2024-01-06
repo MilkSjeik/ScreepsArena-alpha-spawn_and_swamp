@@ -1,5 +1,15 @@
 "use strict";
 
+import {
+  WORK,
+  MOVE,
+  CARRY,
+  ATTACK,
+  RANGED_ATTACK,
+  HEAL,
+  TOUGH,
+} from "game/constants";
+
 // Squad types
 const ASSAULT = "assault";
 const MINING = "mining";
@@ -31,6 +41,18 @@ enum Role {
 }
 
 export { Role };
+
+// Creep body types
+type CreepBody =
+  | typeof WORK
+  | typeof MOVE
+  | typeof CARRY
+  | typeof ATTACK
+  | typeof RANGED_ATTACK
+  | typeof HEAL
+  | typeof TOUGH;
+
+export { CreepBody };
 
 // Creep tasks
 // TODO: attack removed, (ab)using Screeps ATTACK constant

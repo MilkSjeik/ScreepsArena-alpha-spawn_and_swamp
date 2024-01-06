@@ -3,17 +3,18 @@
 import { getObjectsByPrototype } from "game/utils";
 import { StructureSpawn } from "game/prototypes";
 import SquadController from "./SquadController";
-import { Role } from "./constants";
+import { CreepBody, Role } from "./constants";
 //import _ from "./utils/lodash-4.17.21-es/lodash";
 import _ from "lodash";
 import BaseSquad from "squads/BaseSquad";
+import BaseCreep from "creeps/BaseCreep";
 
 // TODO: move to seperate file?
 type SpawnRequest = {
   squad: BaseSquad;
   memberId: number;
   role: Role;
-  body: body[];
+  body: CreepBody[];
 };
 
 class SpawnQueue {
@@ -49,28 +50,30 @@ class SpawnQueue {
       if (creep === undefined) {
         // undefined = already busy
       } else {
-        // emtpy object = spawning creep
-        // set creep properties
-        creep.squadId = firstInQueue.squad.id;
-        creep.memberId = firstInQueue.memberId;
-        creep.role = firstInQueue.role;
+        if (creep instanceof BaseCreep) {
+          // emtpy object = spawning creep
+          // set creep properties
+          creep.squadId = firstInQueue.squad.id;
+          creep.memberId = firstInQueue.memberId;
+          creep.role = firstInQueue.role;
 
-        // remove first from queue
-        this.#queue = _.drop(this.#queue);
+          // remove first from queue
+          this.#queue = _.drop(this.#queue);
 
-        // add creep to squad
-        firstInQueue.squad.updateMember(creep.memberId, creep);
+          // add creep to squad
+          firstInQueue.squad.updateMember(creep.memberId, creep);
+        }
       }
     }
   }
 
-  add(squad, memberId, role, body) {
+  add(squad: BaseSquad, memberId: number, role: Role, body: CreepBody[]) {
     this.#queue.push({
       squad: squad,
       memberId: memberId,
       role: role,
       body: body,
-    } : SpawnRequest);
+    });
   }
 
   remove() {}
