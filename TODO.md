@@ -1,1 +1,5 @@
-- [ ] Adjust `MiningSquad` to determine the correct creep type, e.g.: HAULER
+- [x] Adjust `MiningSquad` to determine the correct creep type, e.g.: HAULER
+- [ ] Modify TypeScript config to:
+  - [ ] Build the right script that can be used by the game
+  - [x] Ignore dist folder
+  - [x] Ignore node_modules folder
