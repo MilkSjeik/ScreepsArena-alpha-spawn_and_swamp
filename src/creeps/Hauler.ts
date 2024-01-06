@@ -2,14 +2,14 @@
 
 import BaseCreep from "./BaseCreep";
 import { CARRY, MOVE, ERR_NOT_IN_RANGE, RESOURCE_ENERGY } from "game/constants";
-import { GameObject, StructureSpawn } from "game/prototypes";
+import { Structure, StructureSpawn } from "game/prototypes";
 import { HAULER, Role } from "../constants";
 import SpawnQueue from "../SpawnQueue";
 import BaseSquad from "squads/BaseSquad";
 
 class Hauler extends BaseCreep {
   // Private
-  #source: GameObject | undefined; // TODO: replace with more specific objects
+  #source: Structure | undefined; // TODO: replace with more specific objects
   #target: StructureSpawn | undefined;
 
   /**
@@ -54,9 +54,10 @@ class Hauler extends BaseCreep {
       //console.log("[D] Run Hauler - Target: " + JSON.stringify(this.#target) + "for creep with id: " + this.creep.id);
       if (this.#target === undefined) {
         console.log("[E] Energy target not defined for creep " + this.creep.id);
-      } else if (!this.#source === undefined) {
+      } else if (this.#source === undefined) {
         console.log("[E] Energy source not defined for creep " + this.creep.id);
-      } else {
+        // Verify if this.#source is a type of StructureConstant
+      } else if (this.#source instanceof Structure) {
         //console.log("[D] Source: " + JSON.stringify(this.#target));
         if (this.creep.store[RESOURCE_ENERGY] == 0) {
           //console.log("[D] Trying to withdraw some energy");

@@ -32,17 +32,17 @@ class SquadController {
         mySquad = new MiningSquad(
           this.squadCounter,
           [Role.MINER, Role.HAULER],
-          spawnQueue
+          spawnQueue,
         );
         break;
-      case ASSAULT:
-        // TODO: implement healer and sniper
-        //mySquad = new AssaultSquad(this.squadCounter, [SOLDIER, SOLDIER, SNIPER, HEALER], spawnQueue);
-        mySquad = new AssaultSquad(
-          this.squadCounter,
-          [SOLDIER, SOLDIER],
-          spawnQueue
-        );
+      // case ASSAULT:
+      //   // TODO: implement healer and sniper
+      //   //mySquad = new AssaultSquad(this.squadCounter, [SOLDIER, SOLDIER, SNIPER, HEALER], spawnQueue);
+      //   mySquad = new AssaultSquad(
+      //     this.squadCounter,
+      //     [SOLDIER, SOLDIER],
+      //     spawnQueue
+      //   );
       default:
         break;
     }

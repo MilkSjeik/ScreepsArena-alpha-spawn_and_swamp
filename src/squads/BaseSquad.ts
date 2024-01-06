@@ -39,13 +39,13 @@ class BaseSquad {
         case HAULER:
           member = new Hauler(spawnQueue, this, this.lastMemberId);
           break;
-        case SOLDIER:
-          member = new Soldier(spawnQueue, this, this.lastMemberId);
-          break;
-        case SNIPER:
-          break;
-        case HEALER:
-          break;
+        // case SOLDIER:
+        //   member = new Soldier(spawnQueue, this, this.lastMemberId);
+        //   break;
+        // case SNIPER:
+        //   break;
+        // case HEALER:
+        //   break;
       }
 
       if (member) {
