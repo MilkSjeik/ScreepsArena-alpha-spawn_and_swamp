@@ -6,6 +6,7 @@ import GameMemory from "../GameMemory";
 import { Role } from "../constants";
 import { StructureContainer } from "game/prototypes";
 import Hauler from "creeps/Hauler";
+import Log from "utils/Logger";
 
 class MiningSquad extends BaseSquad {
   /**
@@ -23,9 +24,8 @@ class MiningSquad extends BaseSquad {
    * TODO
    */
   run(memory: GameMemory) {
-    //console.log("[D] Squad.run()");
-    //console.log("[D] Squad members: " + JSON.stringify(this.members));
-
+    Log.info("MiningSquad", "Squad.run()");
+    Log.debug("MiningSquad", "Squad members: " + JSON.stringify(this.members));
     // Verify if the squad is complete
     // If not, spawn member
 
