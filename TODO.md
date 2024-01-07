@@ -8,3 +8,6 @@
 - [ ] Add logging function
   - [ ] Enable/disable logging levels
   - [ ] Implement different logging levels
+- Creep spawning
+  - [ ] Find other way to identify creep type after spawning
+  - [ ] Add creep to Squad
