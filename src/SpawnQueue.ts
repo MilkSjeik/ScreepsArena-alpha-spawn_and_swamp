@@ -1,7 +1,7 @@
 "use strict";
 
 import { getObjectsByPrototype } from "game/utils";
-import { StructureSpawn } from "game/prototypes";
+import { Creep, StructureSpawn } from "game/prototypes";
 import SquadController from "./SquadController";
 import { CreepBody, Role } from "./constants";
 //import _ from "./utils/lodash-4.17.21-es/lodash";
@@ -47,25 +47,37 @@ class SpawnQueue {
     if (this.#queue.length > 0) {
       const firstInQueue = this.#queue[0];
       // if yes: try to spawn
-      const creep = this.mySpawn.spawnCreep(firstInQueue.body).object;
+      const creep: Creep | undefined = this.mySpawn.spawnCreep(
+        firstInQueue.body,
+      ).object;
       // check result:
       if (creep === undefined) {
         // undefined = already busy
       } else {
-        if (creep instanceof BaseCreep) {
-          // emtpy object = spawning creep
-          // set creep properties
-          creep.squadId = firstInQueue.squad.id;
-          creep.memberId = firstInQueue.memberId;
-          creep.role = firstInQueue.role;
-
-          // remove first from queue
-          console.log("[D] SpawnQueue - remove first from queue");
+        console.log("[D] SpawnQueue - Spawned creep: " + creep.id);
+        console.log("[D] SpawnQueue - Creep type: " + typeof creep);
+        if (creep instanceof Object) {
+          // creep is spawning, remove from queue
+          console.log("[D] SpawnQueue - remove from queue");
           this.#queue = _.drop(this.#queue);
-
-          // add creep to squad
-          firstInQueue.squad.updateMember(creep.memberId, creep);
         }
+        // TODO: find other way to identify creep type after spawning
+        // else {
+        // if (creep instanceof Creep) {
+        //   // emtpy object = spawning creep
+        //   // set creep properties
+        //   creep.squadId = firstInQueue.squad.id;
+        //   creep.memberId = firstInQueue.memberId;
+        //   creep.role = firstInQueue.role;
+        //
+        //   // remove first from queue
+        //   console.log("[D] SpawnQueue - remove first from queue");
+        //   this.#queue = _.drop(this.#queue);
+        //
+        //   // add creep to squad
+        //   firstInQueue.squad.updateMember(creep.memberId, creep);
+        // }
+        // }
       }
     }
   }
