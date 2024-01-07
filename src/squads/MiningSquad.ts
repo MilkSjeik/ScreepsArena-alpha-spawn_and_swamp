@@ -32,7 +32,7 @@ class MiningSquad extends BaseSquad {
     // Time for action
     // for each member in the squad
     this.members.forEach((member) => {
-      console.log("[D] MiningSquad - Found member: " + JSON.stringify(member));
+      Log.debug("MiningSquad", "Found member: " + JSON.stringify(member));
       // If hauler: set target to retrieve energy
       if (member instanceof Hauler) {
         // if (member.role === Role.HAULER) {
@@ -43,12 +43,14 @@ class MiningSquad extends BaseSquad {
           );
 
           if (container !== null) {
-            console.log(
-              "[D] Setting container as source: " + JSON.stringify(container),
+            Log.debug(
+              "MiningSquad",
+              "Setting container as source" + JSON.stringify(container),
             );
             member.source = container;
-            console.log(
-              "[D] Set container as source: " + JSON.stringify(member.source),
+            Log.debug(
+              "MiningSquad",
+              "Set container as source" + JSON.stringify(member.source),
             );
             member.target = memory.mySpawn;
           }

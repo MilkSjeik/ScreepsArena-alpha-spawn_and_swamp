@@ -5,9 +5,9 @@
     - [Screeps Arena Typescript Starter](https://github.com/screepers/screeps-arena-typescript-starter)
   - [x] Ignore dist folder
   - [x] Ignore node_modules folder
-- [ ] Add logging function
-  - [ ] Enable/disable logging levels
-  - [ ] Implement different logging levels
+- [x] Add logging function
+  - [x] Enable/disable logging levels
+  - [x] Implement different logging levels
 - Creep spawning
   - [ ] Find other way to identify creep type after spawning
   - [ ] Add creep to Squad

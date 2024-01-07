@@ -12,6 +12,7 @@ import { Role, HAULER, SOLDIER, SNIPER, HEALER } from "./constants";
 import SpawnQueue from "SpawnQueue";
 import BaseSquad from "squads/BaseSquad";
 import GameMemory from "GameMemory";
+import Log from "utils/Logger";
 
 class SquadController {
   squadCounter = 1;
@@ -54,7 +55,7 @@ class SquadController {
   }
 
   run(memory: GameMemory) {
-    console.log("[D] SquadController.run()");
+    Log.debug("SquadController", "SquadController.run()");
     this.#squads.forEach((squad: BaseSquad) => {
       squad.run(memory);
     });

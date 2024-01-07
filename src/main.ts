@@ -15,10 +15,16 @@ import GameMemory from "./GameMemory";
 import SpawnQueue from "./SpawnQueue";
 import SquadController from "./SquadController";
 import { ASSAULT, MINING, SquadType } from "./constants";
+import { LogLevel } from "./utils/Logger";
+import Log from "./utils/Logger";
 
 let myMemory: GameMemory;
 let mySquadController: SquadController;
 let mySpawnQueue: SpawnQueue;
+
+Log.logLevel = LogLevel.INFO;
+
+Log.debug("Main", "LogLevel: " + Log.logLevel);
 
 export function loop() {
   // Memory = 1 time only
