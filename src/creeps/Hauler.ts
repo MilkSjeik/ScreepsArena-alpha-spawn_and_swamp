@@ -51,31 +51,36 @@ class Hauler extends BaseCreep {
    */
   run() {
     if (this.creep != undefined) {
-      //console.log("[D] Run Hauler - Target: " + JSON.stringify(this.#target) + "for creep with id: " + this.creep.id);
+      console.log(
+        "[D] Run Hauler - Target: " +
+          JSON.stringify(this.#target) +
+          "for creep with id: " +
+          this.creep.id,
+      );
       if (this.#target === undefined) {
         console.log("[E] Energy target not defined for creep " + this.creep.id);
       } else if (this.#source === undefined) {
         console.log("[E] Energy source not defined for creep " + this.creep.id);
         // Verify if this.#source is a type of StructureConstant
       } else if (this.#source instanceof Structure) {
-        //console.log("[D] Source: " + JSON.stringify(this.#target));
+        console.log("[D] Source: " + JSON.stringify(this.#target));
         if (this.creep.store[RESOURCE_ENERGY] == 0) {
-          //console.log("[D] Trying to withdraw some energy");
+          console.log("[D] Trying to withdraw some energy");
           if (
             this.creep.withdraw(this.#source, RESOURCE_ENERGY) ==
             ERR_NOT_IN_RANGE
           ) {
-            //console.log("[D] Not in range, moving closer!");
+            console.log("[D] Not in range, moving closer!");
             this.creep.moveTo(this.#source);
           }
         } else {
           // on top of container = transfer energy
-          //console.log("[D] Transfer energy");
+          console.log("[D] Transfer energy");
           if (
             this.creep.transfer(this.#target, RESOURCE_ENERGY) ==
             ERR_NOT_IN_RANGE
           ) {
-            //console.log("[D] Not in range, moving closer!");
+            console.log("[D] Not in range, moving closer!");
             this.creep.moveTo(this.#target);
           }
         }

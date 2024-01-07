@@ -32,7 +32,7 @@ export function loop() {
     if (myMemory.mySpawn) {
       mySpawnQueue = new SpawnQueue(myMemory.mySpawn);
     } else {
-      console.log("[E] No spawn found to create queue");
+      console.log("[E] Main - No spawn found to create queue");
     }
   }
 

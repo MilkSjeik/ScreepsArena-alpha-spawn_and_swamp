@@ -40,7 +40,9 @@ class SpawnQueue {
 
   // Public methods
   spawn() {
-    //console.log("[D] SpawnQueue - Current spawn queue: " + JSON.stringify(this.#queue));
+    // console.log(
+    //   "[D] SpawnQueue - Current spawn queue: " + JSON.stringify(this.#queue),
+    // );
     // Check if something is in queue
     if (this.#queue.length > 0) {
       const firstInQueue = this.#queue[0];
@@ -58,6 +60,7 @@ class SpawnQueue {
           creep.role = firstInQueue.role;
 
           // remove first from queue
+          console.log("[D] SpawnQueue - remove first from queue");
           this.#queue = _.drop(this.#queue);
 
           // add creep to squad

@@ -31,7 +31,7 @@ class SquadController {
       case MINING:
         mySquad = new MiningSquad(
           this.squadCounter,
-          [Role.MINER, Role.HAULER],
+          [Role.HAULER, Role.HAULER], // TODO: add Miner
           spawnQueue,
         );
         break;
@@ -54,7 +54,7 @@ class SquadController {
   }
 
   run(memory: GameMemory) {
-    //console.log("[D] SquadController.run()");
+    console.log("[D] SquadController.run()");
     this.#squads.forEach((squad: BaseSquad) => {
       squad.run(memory);
     });
